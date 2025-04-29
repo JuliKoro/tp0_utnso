@@ -2,19 +2,19 @@
 
 int main(void) {
 	logger = log_create("log.log", "Servidor", 1, LOG_LEVEL_DEBUG);
-
-	int server_fd = iniciar_servidor();
+	// fd: file descriptor
+	int server_fd = iniciar_servidor(); // nos permite distinguir una conexion de otra
 	log_info(logger, "Servidor listo para recibir al cliente");
 	int cliente_fd = esperar_cliente(server_fd);
 
 	t_list* lista;
 	while (1) {
-		int cod_op = recibir_operacion(cliente_fd);
-		switch (cod_op) {
-		case MENSAJE:
+		int cod_op = recibir_operacion(cliente_fd); // el recibir es bloqueante -> se queda esperando en esa linea
+		switch (cod_op) { //con el cod_op elijo que estoy recibiendo?
+		case MENSAJE: // recibe los log_info
 			recibir_mensaje(cliente_fd);
 			break;
-		case PAQUETE:
+		case PAQUETE: // recibe los paquete
 			lista = recibir_paquete(cliente_fd);
 			log_info(logger, "Me llegaron los siguientes valores:\n");
 			list_iterate(lista, (void*) iterator);
