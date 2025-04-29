@@ -1,5 +1,14 @@
-#include "utils.h"
+// utils.c: codigo fuente de las "utilities" para el cliente
+/*Se usa para agrupar funciones genéricas o reutilizables, como:
+- Envío y recepción segura de datos
+- Funciones de impresión o logging
+- Validación de argumento
+- Serialización/deserialización
+- Funciones de handshake
+- Manejo de errores
+*/
 
+#include "utils.h"
 
 void* serializar_paquete(t_paquete* paquete, int bytes)
 {

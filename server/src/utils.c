@@ -1,3 +1,13 @@
+// utils.c: codigo fuente de las "utilities" para el servidor
+/*Se usa para agrupar funciones genéricas o reutilizables, como:
+- Envío y recepción segura de datos
+- Funciones de impresión o logging
+- Validación de argumento
+- Serialización/deserialización
+- Funciones de handshake
+- Manejo de errores
+*/
+
 #include"utils.h"
 
 t_log* logger;

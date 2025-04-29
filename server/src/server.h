@@ -1,3 +1,6 @@
+// server.h: "header file" (encabezado) del servidor
+// Se ubican las declaraciones de funciones, constantes, structs, etc., que luego se usan en server.c.
+
 #ifndef SERVER_H_
 #define SERVER_H_
 

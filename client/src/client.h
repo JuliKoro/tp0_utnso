@@ -1,3 +1,6 @@
+// client.h: "header file" (encabezado) del cliente
+// Se ubican las declaraciones de funciones, constantes, structs, etc., que luego se usan en client.c.
+
 #ifndef CLIENT_H_
 #define CLIENT_H_
 

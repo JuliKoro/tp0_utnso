@@ -1,3 +1,6 @@
+// utils.h: "header file" (encabezado) de las utilities del server
+// Se ubican las declaraciones de funciones, constantes, structs, etc., que luego se usan en utils.c.
+
 #ifndef UTILS_H_
 #define UTILS_H_
 

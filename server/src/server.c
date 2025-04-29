@@ -1,3 +1,6 @@
+// erver.c: Codigo fuente del servidor
+// Tiene la implementación real de funciones, la lógica del programa.
+
 #include "server.h"
 
 int main(void) {

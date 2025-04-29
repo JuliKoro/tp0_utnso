@@ -1,3 +1,6 @@
+// client.c: Codigo fuente del cliente
+// Tiene la implementación real de funciones, la lógica del programa.
+
 #include "client.h"
 
 int main(void)
