@@ -16,6 +16,12 @@ int main(void)
 	t_config* config;
 
 	/* ---------------- LOGGING ---------------- */
+	/* Un logger (o sistema de logging) es una herramienta que registra 
+	mensajes en tiempo de ejecución para ayudar a los desarrolladores a 
+	entender qué está haciendo el programa, detectar errores, y hacer 
+	seguimiento de eventos importantes.
+	Permite registrar información importante en archivos (cliente.log, por ejemplo).
+	*/
 
 	logger = iniciar_logger();
 
@@ -31,15 +37,16 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-
 	/* ---------------- ARCHIVOS DE CONFIGURACION ---------------- */
+	// Los archivos .config funcionan como un diccionario donde hay:
+	// CLAVE=valor
 
 	config = iniciar_config();
 
 	// Usando el config creado previamente, leemos los valores del config y los 
 	// dejamos en las variables 'ip', 'puerto' y 'valor'
 
-	ip = config_get_string_value(config, "IP");
+	ip = config_get_string_value(config, "IP"); // (t_config *config, "KEY")
 	puerto = config_get_string_value(config, "PUERTO");
 	valor = config_get_string_value(config, "CLAVE");
 
@@ -73,6 +80,12 @@ int main(void)
 
 t_log* iniciar_logger(void)
 {
+	/* Crea una instancia de logger:
+	- cliente.log: archivo en donde escribe los logs
+	- CL_LOG: nombre con el que se muestra
+	- 1: Para que tambien se muestre por consola
+	- LOG_LEVEL_INFO: Loguea solo mensajes de log_info en adelante.
+	*/
 	t_log* nuevo_logger = log_create("cliente.log", "CL_LOG", 1, LOG_LEVEL_INFO);
 
 	return nuevo_logger;
@@ -81,19 +94,23 @@ t_log* iniciar_logger(void)
 t_config* iniciar_config(void)
 {
 	t_config* nuevo_config = config_create("cliente.config");
+	//abre y parsea el archivo de configuración que debe existir en el mismo directorio donde se ejecuta el binario.
 	if(nuevo_config == NULL){
-		perror("Error al intentar cargar el nuevo config.");
+		//no puede abrir o leer el archivo (i.e: si no existe)
+		perror("Error al intentar cargar el nuevo config."); //msj de error
 		exit(EXIT_FAILURE); // Terminemos el programa
 	}
 
 	return nuevo_config;
+	//puntero t_config* con la configuración cargada para que lo uses en el resto del programa
 }
 
 void leer_consola(t_log* logger)
 {
-	char* leido;
+	char* leido; // variable donde va a guardar la línea que se lea de la consola.
 
 	// La primera te la dejo de yapa
+	// muestra el prompt ">" y espera a que el usuario escriba algo
 	leido = readline("> "); // leo la consola y almaceno 
 	log_info(logger, ">> %s", leido); // logeo en el cliente el contenido leido
 
@@ -103,8 +120,7 @@ void leer_consola(t_log* logger)
 		free(leido); // libero lo leido
 		leido = readline("> "); //vuelvo a leer
 		log_info(logger, ">> %s", leido); // vuelvo a logear
-	}
-	
+	} // sale cuando vea una linea vacia
 
 	// ¡No te olvides de liberar las lineas antes de regresar!
 	free(leido);
@@ -128,6 +144,6 @@ void terminar_programa(int conexion, t_log* logger, t_config* config)
 	/* Y por ultimo, hay que liberar lo que utilizamos (conexion, log y config) 
 	  con las funciones de las commons y del TP mencionadas en el enunciado */
 
-	  log_destroy(logger);
-	  config_destroy(config);
+	  log_destroy(logger); // Cierra el logger
+	  config_destroy(config); // Cierra el .config
 }
