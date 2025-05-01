@@ -74,7 +74,7 @@ int handshake_cliente(int socket_cliente);
 
 /**
  * @brief Envia un mensaje string al servidor por socket
- * @param mensaje l string char* que vamos a enviar
+ * @param mensaje el string char* que vamos a enviar
  * @param socket_cliente fd del socket a través del cual lo vamos a enviar.
  * 
  * Envia un mensaje por socket a un servidor, empaquetando los datos con una estructura más robusta y organizada.

@@ -180,7 +180,7 @@ void recibir_mensaje(int socket_cliente)
 	int size;
 	// Recibe el MENSAJE a traves del buffer en na cadena de texto
 	char* buffer = recibir_buffer(&size, socket_cliente);
-	log_info(logger, "Me llego el mensaje %s", buffer); // Loggea el MSJ
+	log_info(logger, "Me llego el mensaje: %s", buffer); // Loggea el MSJ
 	free(buffer); // Libera la memoria reservada para el buffer
 }
 

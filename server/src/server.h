@@ -30,9 +30,9 @@
 #include "utils.h"
 
 /**
- * @brief 
- * @param 
- * @param 
+ * @brief Imprime cada valor recibido en el paquete
+ * @param value valor que quiero imprimir en el logger global
+ * @note Funcion auxiliar que usa list_iterate(lista, (void*) iterator);
  */
 void iterator(char* value);
 

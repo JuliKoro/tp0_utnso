@@ -53,7 +53,18 @@ t_config* iniciar_config(void);
  */
 void leer_consola(t_log*);
 
+/**
+ * @brief 
+ * @param 
+ */
 void paquete(int);
+
+/**
+ * @brief Cierra y libera to las estructuras de memoria utilizadas
+ * @param conexion (int) fd del socket de conexion
+ * @param logger uilizado para logger mensajes
+ * @param onfig archivo de configs
+ */
 void terminar_programa(int, t_log*, t_config*);
 
 // Cierra las guards de inclusión
