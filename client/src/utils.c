@@ -85,6 +85,7 @@ int crear_conexion(char *ip, char* puerto)
 	return socket_cliente; // devuelvo el socket conectado
 }
 
+/*
 int handshake_cliente(int socket_cliente)
 {
 	size_t bytes;
@@ -92,18 +93,18 @@ int handshake_cliente(int socket_cliente)
 	int32_t handshake = 1; // Se define un valor fijo (1) que el cliente usará para iniciar el handshake
 	int32_t result; // int32_t: entero signado de 32 bits
 
-	/* send: envia una estructura al servidor
+	send: envia una estructura al servidor
 	socket_cliente: es el socket ya conectado al servidor.
 	&handshak: Se envía el entero handshake al servidor.
 	sizeof(int32_t): se asegura de que se envíen exactamente 4 bytes.
-	0: sin flags especiales. */
+	0: sin flags especiales. *
 	bytes = send(socket_cliente, &handshake, sizeof(int32_t), 0);
 	// Esto manda un mensaje inicial al servidor, como diciendo: "Quiero comunicarme".
 	
-	/* recv: espera una respuesta del servidor y la guarda
+	 recv: espera una respuesta del servidor y la guarda
 	&result: variable donde se guarda la respuesta
 	MSG_WAITALL: flag que fuerza a que se reciban exactamente esos sizeof(int32_t) bytes antes de continuar (importante para datos binarios).
-	*/
+	
 	bytes = recv(socket_cliente, &result, sizeof(int32_t), MSG_WAITALL);
 	// Está esperando que el servidor responda con un código de estado.
 
@@ -113,6 +114,7 @@ int handshake_cliente(int socket_cliente)
     	return -1;// Handshake ERROR
 	}
 }
+*/
 
 void enviar_mensaje(char* mensaje, int socket_cliente)
 {

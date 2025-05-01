@@ -112,6 +112,7 @@ int esperar_cliente(int socket_servidor)
 	return socket_cliente;
 }
 
+/*
 int handshake_servidor(int socket_cliente)
 {
 	size_t bytes;
@@ -121,11 +122,11 @@ int handshake_servidor(int socket_cliente)
 	int32_t resultError = -1;
 	
 	// recibe el handshake del cliente
-	/* el servidor espera recibir 4 bytes desde el cliente
+	 el servidor espera recibir 4 bytes desde el cliente
 	socket_cliente: el socket que representa al cliente (resultado de accept()).
 	MSG_WAITALL: asegura que se reciban todos los bytes esperados (4 bytes en este caso) antes de continuar.
 	El dato recibido se guarda en la variable handshake.
-	*/
+	
 	bytes = recv(socket_cliente, &handshake, sizeof(int32_t), MSG_WAITALL);
 	// lee el mensaje del cliente que, según el protocolo, debería ser 1.
 	
@@ -139,6 +140,7 @@ int handshake_servidor(int socket_cliente)
 		//Se envía -1 como señal de "Handshake ERROR".
 	}
 }
+*/
 
 int recibir_operacion(int socket_cliente)
 {
