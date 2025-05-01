@@ -1,5 +1,14 @@
-// client.c: Codigo fuente del cliente
-// Tiene la implementación real de funciones, la lógica del programa.
+/**
+ * @file client.c
+ * @author sisoputnfrba
+ * @author JuliKoro
+ * @date 21 Mar 2019
+ * @brief Codigo fuente del cliente
+ *
+ * Tiene la implementación real de funciones, la lógica del programa.
+ * @see https://docs.utnso.com.ar/primeros-pasos/tp0
+ * @see https://docs.utnso.com.ar/guias/linux/sockets
+ */
 
 #include "client.h"
 

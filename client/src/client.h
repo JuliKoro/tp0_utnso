@@ -1,16 +1,36 @@
-// client.h: "header file" (encabezado) del cliente
-// Se ubican las declaraciones de funciones, constantes, structs, etc., que luego se usan en client.c.
+/**
+ * @file client.h
+ * @author sisoputnfrba
+ * @author JuliKoro
+ * @date 21 Mar 2019
+ * @brief "header file" (encabezado) del cliente
+ *
+ * Se ubican las declaraciones de funciones, constantes, structs, etc., que luego se usan en client.c.
+ * @see https://docs.utnso.com.ar/primeros-pasos/tp0
+ * @see https://docs.utnso.com.ar/guias/linux/sockets
+ */
 
+/** Guardas de inclusion
+ * Evitan que el archivo sea incluido más de una vez en el mismo archivo fuente (.c).
+ * Si ya fue incluido, se omite; si no, se define CLIENT_H_ y se incluye el contenido.
+ * Esto previene errores de compilación por definiciones múltiples.
+ */
 #ifndef CLIENT_H_
 #define CLIENT_H_
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<commons/log.h>
-#include<commons/string.h>
-#include<commons/config.h> // para operar las configs
-#include<readline/readline.h> // para leer de la consola
+// Librerias standard de C
+#include<stdio.h> // Entrada/salida (por ejemplo, printf, perror, etc.).
+#include<stdlib.h> // Utilidades como malloc, free, exit.
 
+// Librerías de la biblioteca Commons (de so-unix/utn)
+#include<commons/log.h> // Para crear logs fácilmente (t_log* logger, log_info, etc.).
+#include<commons/string.h> // Funciones adicionales para manejo de strings.
+#include<commons/config.h> //  Permite leer archivos .config, accediendo a claves y valores.
+
+// Leer entradas desde la consola
+#include<readline/readline.h> 
+
+// Inclusión del archivo de utilidades
 #include "utils.h"
 
 /**
@@ -36,4 +56,5 @@ void leer_consola(t_log*);
 void paquete(int);
 void terminar_programa(int, t_log*, t_config*);
 
+// Cierra las guards de inclusión
 #endif /* CLIENT_H_ */

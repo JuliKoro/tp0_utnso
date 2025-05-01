@@ -1,12 +1,20 @@
-// utils.c: codigo fuente de las "utilities" para el servidor
-/*Se usa para agrupar funciones genéricas o reutilizables, como:
-- Envío y recepción segura de datos
-- Funciones de impresión o logging
-- Validación de argumento
-- Serialización/deserialización
-- Funciones de handshake
-- Manejo de errores
-*/
+/**
+ * @file utils.c
+ * @author sisoputnfrba
+ * @author JuliKoro
+ * @date 21 Mar 2019
+ * @brief codigo fuente de las "utilities" para el servidor
+ *
+ * Se usa para agrupar funciones genéricas o reutilizables, como:
+ * - Envío y recepción segura de datos
+ * - Funciones de impresión o logging
+ * - Validación de argumento
+ * - Serialización/deserialización
+ * - Funciones de handshake
+ * - Manejo de errores
+ * @see https://docs.utnso.com.ar/primeros-pasos/tp0
+ * @see https://docs.utnso.com.ar/guias/linux/sockets
+ */
 
 #include"utils.h"
 
@@ -134,53 +142,70 @@ int handshake_servidor(int socket_cliente)
 
 int recibir_operacion(int socket_cliente)
 {
-	int cod_op;
-	if(recv(socket_cliente, &cod_op, sizeof(int), MSG_WAITALL) > 0)
-		return cod_op;
-	else
+	int cod_op; // variable que almacenará el código de operación recibido
+	
+	// Recibe datos desde el socket del cliente.
+	/**socket_cliente: fd del socket
+	 * &cod_op: dirección de memoria donde guardar el entero recibido
+	 * sizeof(int): se espera 1 int
+	 * MSG_WAITALL: le dice a recv() que espere hasta recibir todos los bytes solicitados, no solo una parte.
+	 */
+	if(recv(socket_cliente, &cod_op, sizeof(int), MSG_WAITALL) > 0) // Verifica que se haya recibido al menos un byte
+		return cod_op; // Si la recepción fue exitosa, se retorna el código recibido (cod_op)
+	else // Si no se reciben datos
 	{
-		close(socket_cliente);
-		return -1;
+		close(socket_cliente); // se cierra el socket
+		return -1; // se retorna -1 para indicar que algo falló
 	}
 }
 
 void* recibir_buffer(int* size, int socket_cliente)
 {
-	void * buffer;
+	/* un buffer es un área temporal de memoria utilizada 
+	para almacenar datos mientras se están transmitiendo o procesando.*/
+	void * buffer; // variable puntero genérica
 
+	// Recive el tamanio del buffer y alamcena en size
 	recv(socket_cliente, size, sizeof(int), MSG_WAITALL);
+	// Reserva memoria para los datos del buffer
 	buffer = malloc(*size);
+	// Recibe el rsto de los datos enviados y los almacena en buffer
 	recv(socket_cliente, buffer, *size, MSG_WAITALL);
 
-	return buffer;
+	return buffer; // Devuelve el puntero al bloque de memoria con los datos recibidos.
 }
 
 void recibir_mensaje(int socket_cliente)
 {
 	int size;
+	// Recibe el MENSAJE a traves del buffer en na cadena de texto
 	char* buffer = recibir_buffer(&size, socket_cliente);
-	log_info(logger, "Me llego el mensaje %s", buffer);
-	free(buffer);
+	log_info(logger, "Me llego el mensaje %s", buffer); // Loggea el MSJ
+	free(buffer); // Libera la memoria reservada para el buffer
 }
 
 t_list* recibir_paquete(int socket_cliente)
 {
-	int size;
-	int desplazamiento = 0;
-	void * buffer;
-	t_list* valores = list_create();
-	int tamanio;
+	int size; // tamaño total del buffer recibido
+	int desplazamiento = 0; // cursor para recorrer el buffer
+	void * buffer; // donde se almacena el bloque recibido
+	t_list* valores = list_create(); // lista de elementos (ej. strings)
+	int tamanio; // tamaño de cada elemento individual
 
+	// Recibir el buffer del socket
 	buffer = recibir_buffer(&size, socket_cliente);
-	while(desplazamiento < size)
+	while(desplazamiento < size) // Loop para desempaquetar datos (todo el buffer)
 	{
+		// Leer el tamaño del siguiente elemento
 		memcpy(&tamanio, buffer + desplazamiento, sizeof(int));
-		desplazamiento+=sizeof(int);
-		char* valor = malloc(tamanio);
-		memcpy(valor, buffer+desplazamiento, tamanio);
-		desplazamiento+=tamanio;
-		list_add(valores, valor);
+		desplazamiento+=sizeof(int); // anvanza el cursor
+
+		// Leer el dato en sí
+		char* valor = malloc(tamanio); // reserva memoria para el dato valor
+		memcpy(valor, buffer+desplazamiento, tamanio); // Copia los bytes correspondientes desde el buffer
+		desplazamiento+=tamanio; // avanza el cursor
+		list_add(valores, valor); // Agregar el valor a la lista
 	}
-	free(buffer);
-	return valores;
+	free(buffer); // Liberar el buffer original
+	return valores; // Devolver la lista con los datos
 }

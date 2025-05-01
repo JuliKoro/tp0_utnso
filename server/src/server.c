@@ -1,5 +1,14 @@
-// erver.c: Codigo fuente del servidor
-// Tiene la implementación real de funciones, la lógica del programa.
+/**
+ * @file server.c
+ * @author sisoputnfrba
+ * @author JuliKoro
+ * @date 21 Mar 2019
+ * @brief Codigo fuente del servidor
+ *
+ * Tiene la implementación real de funciones, la lógica del programa.
+ * @see https://docs.utnso.com.ar/primeros-pasos/tp0
+ * @see https://docs.utnso.com.ar/guias/linux/sockets
+ */
 
 #include "server.h"
 
